@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>LOOPSTATIONコミュニティ</title>
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    background-color: #ccff66;
+
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* 説明文 */
+  .instruction {
+    width: 80vw;
+    max-width: 1000px;
+    margin-bottom: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #00bfff;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* 画像とハイライトを重ねるための箱 */
+  .image-container {
+    position: relative;
+    width: 80vw;
+    max-width: 1000px;
+  }
+
+  .community-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 12px solid yellow;
+    background-color: yellow;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  /* マウスが乗ったときに表示するハイライト */
+  .highlight {
+    position: absolute;
+    display: none;
+    pointer-events: none;
+    border: 5px solid #00bfff;
+    border-radius: 15px;
+    box-sizing: border-box;
+    background-color: rgba(0, 191, 255, 0.15);
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.8);
+  }
+
+  /* 戻るリンク */
+  .back-link {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #00bfff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+</head>
+
+<body>
+
+  <div class="instruction">
+    コミュニティアイコンをクリックすると詳しい説明を見ることが出来ます
+  </div>
+
+  <div class="image-container">
+
+    <img
+      class="community-image"
+      src="ゼミ - コピー.png"
+      alt="LOOPSTATION COMMUNITY"
+      usemap="#community-map"
+    >
+
+    <!-- マウスが乗った部分を強調する枠 -->
+    <div id="highlight" class="highlight"></div>
+
+    <map name="community-map">
+
+      <!-- SWISS BEATBOX -->
+      <area
+        shape="rect"
+        coords="12,164,329,338"
+        href="#"
+        alt="SWISS BEATBOX"
+        data-coords="12,164,329,338"
+      >
+
+      <!-- BEATBOX BATTLE -->
+      <area
+        shape="rect"
+        coords="7,344,464,510"
+        href="#"
+        alt="BEATBOX BATTLE"
+        data-coords="7,344,464,510"
+      >
+
+      <!-- BEATBOX GERMANY -->
+      <area
+        shape="rect"
+        coords="8,632,307,793"
+        href="#"
+        alt="BEATBOX GERMANY"
+        data-coords="8,632,307,793"
+      >
+
+      <!-- JAPAN LOOPSTATION COMMUNITY -->
+      <area
+        shape="rect"
+        coords="6,834,460,958"
+        href="page3.html"
+        alt="JAPAN LOOPSTATION COMMUNITY"
+        data-coords="6,834,460,958"
+      >
+
+      <!-- BEATBOX COMMUNITY -->
+      <area
+        shape="rect"
+        coords="13,1144,323,1312"
+        href="#"
+        alt="BEATBOX COMMUNITY"
+        data-coords="13,1144,323,1312"
+      >
+
+      <!-- CLIP LOOPSTATION COMMUNITY -->
+      <area
+        shape="rect"
+        coords="712,1274,1011,1439"
+        href="page4.html"
+        alt="CLIP LOOPSTATION COMMUNITY"
+        data-coords="712,1274,1011,1439"
+      >
+
+    </map>
+
+  </div>
+
+  <a class="back-link" href="index.html">← 戻る</a>
+
+
+<script>
+
+  const image = document.querySelector(".community-image");
+  const areas = document.querySelectorAll("area");
+  const highlight = document.getElementById("highlight");
+
+  /*
+    元画像は1024×1536pxなので、
+    表示サイズに合わせてクリック領域を縮小・拡大します。
+  */
+
+  areas.forEach(area => {
+
+    area.addEventListener("mouseenter", function() {
+
+      const coords = this.dataset.coords.split(",").map(Number);
+
+      const x1 = coords[0];
+      const y1 = coords[1];
+      const x2 = coords[2];
+      const y2 = coords[3];
+
+      const scaleX = image.clientWidth / 1024;
+      const scaleY = image.clientHeight / 1536;
+
+      highlight.style.display = "block";
+
+      highlight.style.left = (x1 * scaleX) + "px";
+      highlight.style.top = (y1 * scaleY) + "px";
+
+      highlight.style.width =
+        ((x2 - x1) * scaleX) + "px";
+
+      highlight.style.height =
+        ((y2 - y1) * scaleY) + "px";
+
+      image.style.cursor = "pointer";
+
+    });
+
+    area.addEventListener("mouseleave", function() {
+
+      highlight.style.display = "none";
+
+    });
+
+  });
+
+</script>
+
+</body>
+</html>
